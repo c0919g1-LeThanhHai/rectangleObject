@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            width: 500px;
+            margin: auto;
+        }
+        #width{
+            float: left;
+        }
+        #height {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <input type="number" id="width" placeholder="Nhập chiều rộng">
+    <input type="number" id="height" placeholder="Nhập chiều dài">
+    <button id="btn">Thay đổi</button>
+    <canvas id="myRect" width="500" height="500" style="border: 1px solid #d3d3d3"></canvas>
+    <p id="result"></p>
+</div>
+<script>
+    //khởi tạo lớp hình chữ nhật
+    let Rectangle = function(width, height) {
+        this.width = width;
+        this.getWidth = function() {
+            return this.width;
+        };
+        this.setWidth = function(Width) {
+              this.width = Width;
+        };
+
+        this.height = height;
+        this.getHeight = function() {
+            return this.height;
+        };
+        this.setHeight = function(Height) {
+            this.height = Height;
+        }
+
+        this.perimeter = function() {
+            return (this.getWidth() + this.getHeight()) * 2;
+        }
+
+        this.acreage = function() {
+            return this.getWidth() * this.getHeight();
+        }
+    }
+
+    function createRect() {
+        let width = Number(document.getElementById("width").value);
+        let height = Number(document.getElementById("height").value);
+        let result = document.getElementById("result");
+
+        let rectangle = new Rectangle(width, height);
+        result.innerText = `Chu vi hình chữ nhật là: ${rectangle.perimeter()} \nDiện tích hình chữ nhật là: ${rectangle.acreage()}`;
+
+        let rect = document.getElementById("myRect");
+        let ctx = rect.getContext("2d");
+        let grd = ctx.createLinearGradient(0,0,100,50);
+        grd.addColorStop(0,"red");
+        grd.addColorStop(1,"yellow");
+        ctx.fillStyle = grd;
+        ctx.fillRect(0,0,rectangle.getWidth(), rectangle.getHeight());
+    }
+
+    let btn = document.getElementById("btn");
+    btn.onclick = function() {
+        createRect();
+    }
+</script>
+</body>
+</html>
